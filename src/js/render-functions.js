@@ -1,17 +1,15 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+const gallery = document.querySelector('.gallery');
+let lightbox = new SimpleLightbox('.gallery a');
+
+export const clearGallery = () => {
+  gallery.innerHTML = '';
+};
+
 export const renderGallery = (images) => {
-  const gallery = document.querySelector('.gallery');
- 
-    if (images.length === 0) {
-    iziToast.info({
-      message: "Sorry, there are no images matching your search query. Please try again!",
-      position: "topRight",
-    });
-    return;
-    }
-    const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+  const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
     return `
       <li class="gallery-item">
         <a href="${largeImageURL}" class="gallery-link">
@@ -27,8 +25,7 @@ export const renderGallery = (images) => {
     `;
   }).join('');
   
-     gallery.insertAdjacentHTML('beforeend', markup); 
-  const lightbox = new SimpleLightbox('.gallery a');
+  gallery.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();
 };
 
